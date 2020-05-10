@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ProductsData } from '../models/products-data';
+import { Product } from '../models/product';
 
 const PRODUCTS_URL: string = 'http://localhost:3000/products';
 
@@ -15,7 +16,33 @@ const PRODUCTS_URL: string = 'http://localhost:3000/products';
 export class ProductsService {
   constructor(private httpClient: HttpClient) { }
 
-  getProducts (): Observable<ProductsData> {
-    return this.httpClient.get(PRODUCTS_URL).pipe(map((data: any) => new ProductsData(data)));
+  getProducts (parameters?: any): Observable<ProductsData> {
+    let queryParameters = {};
+    if (parameters) {
+      queryParameters = {
+        params: new HttpParams()
+          .set('page', parameters.page || '')
+          .set('pageSize', parameters.pageSize || '')
+          // .set('sort', parameters.sort || '')
+          // .set('sortDirection', parameters.sortDirection || '')
+      }
+    }
+    return this.httpClient.get(PRODUCTS_URL, queryParameters).pipe(map((data: any) => new ProductsData(data)));
+  }
+
+  deleteProduct (productId: string): Observable<Product> {
+    return this.httpClient.delete(PRODUCTS_URL + '/' + productId).pipe(map((data: any) => {
+      return new Product(data.document);
+    }))
+  }
+
+  resetProducts (parameters: any): Observable<Product[]> {
+    const queryParameters = {
+      params: new HttpParams()
+        .set('reset', parameters.reset)
+    };
+    return this.httpClient.get(PRODUCTS_URL, queryParameters).pipe(map((data: any) => {
+      return data.insertedDocuments.map((item: any) => new Product(item));
+    }));
   }
 }

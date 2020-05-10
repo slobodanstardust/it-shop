@@ -7,7 +7,9 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AdministratorComponent } from './administrator/administrator.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdminProductsComponent } from './admin-products/admin-products.component';
+import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 
 
 @NgModule({
@@ -16,12 +18,14 @@ import { AdministratorComponent } from './administrator/administrator.component'
     HeaderComponent,
     HomeComponent,
     PageNotFoundComponent,
-    AdministratorComponent
+    AdminProductsComponent,
+    AdminOrdersComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
