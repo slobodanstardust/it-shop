@@ -1,27 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { regExpEscape } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 
 @Component({
   selector: 'its-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  templateUrl: './header.component.html'
 })
 
 export class HeaderComponent implements OnInit {
   displayStyle: string = 'flex';
 
-  constructor(private router: Router) {
+  constructor(private router: Router) { }
+
+  ngOnInit(): void {
     // For hidding the carousel when administrator page is in use.
-    router.events.subscribe(event => {
+    this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         if (/^\/administrator/.test(event.url)) this.displayStyle = 'none';
         else this.displayStyle = 'flex';
       }
-    })
-  }
-
-  ngOnInit(): void {
+    });
   }
 }

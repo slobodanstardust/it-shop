@@ -17,9 +17,11 @@
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
-      <th scope="col" colspan="6" class="text-center">Products</th>
+      <th scope="col" colspan="6" class="text-center align-middle">Products</th>
     </tr>
   </thead>
+
+  <!-- Table size and navigation -->
   <tbody>
     <tr>
       <td scope="col" colspan="1" class="text-center">
@@ -31,6 +33,7 @@
         </div>
         &nbsp;Current size: {{ parameters.pageSize }}
       </td>
+      
       <td scope="col" colspan="5" class="text-center">
         <div class="btn-group btn-group-sm" role="group" aria-label="Pagination buttons">
           <button type="button" class="btn btn-secondary" (click)="firstPage()" [disabled]="firstDisabled">First</button>
@@ -42,6 +45,7 @@
       </td>
     </tr>
   </tbody>
+
   <thead class="thead-dark">
     <tr>
       <th scope="col">ID</th>
@@ -52,6 +56,8 @@
       <th scope="col">Action</th>
     </tr>
   </thead>
+  
+  <!-- Table content -->
   <tbody>
     <tr *ngFor="let item of products">
       <th scope="row" class="align-middle">{{ item._id }}</th>
@@ -61,19 +67,29 @@
       <td class="align-middle">{{ item.price | number }}</td>
       <td class="d-flex flex-row-reverse">
         <div class="btn-group btn-group-sm" role="group" aria-label="Action buttons">
-          <button type="button" class="btn btn-info">View</button>
-          <button type="button" class="btn btn-warning">Edit</button>
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewProduct" (click)="showView(item._id)">View</button>
+          <button type="button" class="btn btn-warning" routerLink="/administrator/products/edit/{{ item._id }}">Edit</button>
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProduct" (click)="askDelete(item._id)">Delete</button>
         </div>
       </td>
     </tr>
+
+    <!-- Reset section -->
     <tr>
-      <td scope="col" colspan="5" class="align-middle">Click 'Reset' button to reload data into the database.</td>
+      <td scope="col" colspan="5" class="align-middle">Click 'Reset', and then 'Reload table' button to reset data in the database.</td>
       <td scope="col" colspan="1" class="d-flex flex-row-reverse">
-        <div class="btn-group btn-group-sm" role="group" arial-label="Sction buttons">
+        <div class="btn-group btn-group-sm" role="group" arial-label="Action buttons">
           <button type="button" class="btn btn-warning" (click)="resetProductsData()">Reset</button>
           <button type="button" class="btn btn-primary" (click)="loadProducts()">Reload table</button>
         </div>
+      </td>
+    </tr>
+
+    <!-- Add section -->
+    <tr>
+      <td scope="col" colspan="5" class="align-middle">You can add new products here.</td>
+      <td scope="col" colspan="1" class="text-center d-flex flex-row-reverse">
+        <button type="button" class="btn btn-sm btn-primary" routerLink="/administrator/products/add">Add new product</button>
       </td>
     </tr>
   </tbody>
@@ -89,15 +105,22 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
       <div class="modal-body" *ngIf="clickedProduct">
         <strong>ID: {{ clickedProduct._id }}</strong><br>
         Name: {{ clickedProduct.brand }} {{ clickedProduct.name }}<br>
         Price: {{ clickedProduct.price | number }}
       </div>
+      
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-danger"  data-dismiss="modal" (click)=onDelete(clickedProduct._id)>Delete</button>
       </div>
     </div>
   </div>
+</div>
+
+<!-- View modal -->
+<div class="modal fade" id="viewProduct" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <its-view-modal [clickedProduct]="clickedProduct" (delete)="onDelete($event)"></its-view-modal>
 </div>

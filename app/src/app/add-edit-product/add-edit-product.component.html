@@ -1,0 +1,229 @@
+<!-- Update alert -->
+<div class="alert alert-success alert-dismissible fade show mt-3" role="alert" [style.display]="updateAlert" *ngIf="activeProduct">
+  <strong>Success!&nbsp;</strong> You've updated the product with the ID:&nbsp;<strong>{{ activeProduct._id }}</strong>.
+  <button type="button" class="close" aria-label="Close" (click)="dismissAlert('update')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<!--Add alert -->
+<div class="alert alert-success alert-dismissible fade show mt-3" role="alert" [style.display]="addAlert" *ngIf="activeProduct">
+  <strong>Success!&nbsp;</strong> You've added the product with the ID:&nbsp;<strong>{{ activeProduct._id }}</strong>.
+  <button type="button" class="close" aria-label="Close" (click)="dismissAlert('add')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<h3 class="mt-3" *ngIf="productId else addTitle">
+  {{ activeProduct?.brand }} {{ activeProduct?.name }}
+  <small class="text-muted">{{ activeProduct?._id }}</small>
+</h3>
+
+<ng-template #addTitle>
+  <h3 class="mt-3">Add new product</h3>
+</ng-template>
+
+<form class="mt-5" [formGroup]="addEdit">
+  <fieldset class="form-group">
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Categories: </legend>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="notebook" value="notebook"
+            formControlName="category">
+          <label class="form-check-label" for="notebook">
+            Notebook
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="desktop" value="desktop"
+            formControlName="category">
+          <label class="form-check-label" for="desktop">
+            Desktop
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="tablet" value="tablet"
+            formControlName="category">
+          <label class="form-check-label" for="tablet">
+            Tablet
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="smartphone" value="smartphone"
+            formControlName="category">
+          <label class="form-check-label" for="smartphone">
+            Smartphone
+          </label>
+        </div>
+
+        <!-- Category validation warning -->
+        <small
+          class="text-danger"
+          *ngIf="submitted && addEdit.get('category').errors?.required">
+          Category is required.
+        </small>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Brand: </label>
+    <div class="col-sm-10">
+        <select class="form-control"
+          formControlName="brand">
+            <option value="">Select...</option>
+            <option value="Acer">Acer</option>
+            <option value="Asus">Asus</option>
+            <option value="Dell">Dell</option>
+            <option value="Lenovo">Lenovo</option>
+            <option value="HP">HP</option>
+        </select>
+
+        <!-- Brand validation warning -->
+        <small
+          class="text-danger"
+          *ngIf="addEdit.get('brand').touched && addEdit.get('brand').errors?.required || submitted && addEdit.get('brand').errors?.required">
+          Brand is required.
+        </small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Name: </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control"
+        formControlName="name">
+
+      <!-- Name validation warning -->
+      <small
+        class="text-danger"
+        *ngIf="addEdit.get('name').touched && addEdit.get('name').errors?.required">
+        Name is required.
+      </small>
+      <small
+        class="text-danger"
+        *ngIf="addEdit.get('name').touched && addEdit.get('name').errors?.minlength">
+        Name must be 2 or more letters long.
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Processor: </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control"
+        formControlName="processor">
+        
+      <!-- Processor validation warning -->
+      <small
+        class="text-danger"
+        *ngIf="addEdit.get('processor').touched && addEdit.get('processor').errors?.required">
+        Processor is required.
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Memory: </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control"
+        formControlName="memory">
+        
+      <!-- Memory validation warning -->
+      <small
+        class="text-danger"
+        *ngIf="addEdit.get('memory').touched && addEdit.get('memory').errors?.required">
+        Memory is required.
+      </small>
+      <small
+        class="text-danger"
+        *ngIf="addEdit.get('memory').touched && addEdit.get('memory').errors?.pattern">
+        Incorrect input! Enter number for memory amount follewed by 'GB' or 'TB'.
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Storage: </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control"
+        formControlName="storage">
+        
+      <!-- Storage validation warning -->
+      <small
+        class="text-danger"
+        *ngIf="addEdit.get('storage').touched && addEdit.get('storage').errors?.required">
+        Storage is required.
+      </small>
+      <small
+        class="text-danger"
+        *ngIf="addEdit.get('storage').touched && addEdit.get('storage').errors?.pattern">
+        Incorrect input! Enter number for storage amount follewed by 'GB' or 'TB'.
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Display </label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control"
+        formControlName="display">
+        
+      <!-- Display validation warning -->
+      <small
+        class="text-danger"
+        *ngIf="addEdit.get('display').touched && addEdit.get('display').errors?.required">
+        Display is required.
+      </small>
+      <small
+        class="text-danger"
+        *ngIf="addEdit.get('display').touched && addEdit.get('display').errors?.pattern">
+        Incorrect input! Enter size in inches followed by 'inch'.>
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Price: </label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" min="1"
+        formControlName="price">
+        
+      <!-- Price validation warning -->
+      <small
+        class="text-danger"
+        *ngIf="addEdit.get('price').touched && addEdit.get('price').errors?.required">
+        Price is required.
+      </small>
+      <small
+        class="text-danger"
+        *ngIf="addEdit.get('price').touched && addEdit.get('price').errors?.min">
+        Minimum price is 1.
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Image</label>
+    <div class="col-sm-10">
+      <input type="file" class="form-control-file" (change)="onFileSelected($event.target.files)">
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div class="row" *ngIf="activeProduct else add">
+    <div class="col d-flex flex-row-reverse">
+      <button class="btn btn-primary" type="button" (click)="onUpdate()">Update</button>&nbsp;&nbsp;
+      <button class="btn btn-secondary" type="button" (click)="onRevert()">Revert</button>
+    </div>
+  </div>
+  <ng-template #add>
+    <div class="row">
+      <div class="col d-flex flex-row-reverse">
+        <button class="btn btn-primary" type="button" (click)="onSubmit()">Submit</button>&nbsp;&nbsp;
+        <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
+      </div>
+    </div>
+  </ng-template>
+</form>

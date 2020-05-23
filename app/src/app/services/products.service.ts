@@ -30,10 +30,20 @@ export class ProductsService {
     return this.httpClient.get(PRODUCTS_URL, queryParameters).pipe(map((data: any) => new ProductsData(data)));
   }
 
+  getProductById (productId: string): Observable<Product> {
+    return this.httpClient.get(PRODUCTS_URL + '/' + productId).pipe(map((data: any) => new Product(data)));
+  }
+
+  updateProduct (product: Product): Observable<Product> {
+    return this.httpClient.put(PRODUCTS_URL + '/' + product._id, product).pipe(map((data: any) => new Product(data.document)));
+  }
+
   deleteProduct (productId: string): Observable<Product> {
-    return this.httpClient.delete(PRODUCTS_URL + '/' + productId).pipe(map((data: any) => {
-      return new Product(data.document);
-    }))
+    return this.httpClient.delete(PRODUCTS_URL + '/' + productId).pipe(map((data: any) => new Product(data.document)));
+  }
+
+  addProduct (newProduct: Product): Observable<Product> {
+    return this.httpClient.post(PRODUCTS_URL + '/', newProduct).pipe(map((data: any) => new Product(data.document)));
   }
 
   resetProducts (parameters: any): Observable<Product[]> {

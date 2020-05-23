@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Product = require('../models/product')
-const productsData = require('../../products-db')
+const multer = require('multer')
 
 // GET
 exports.getProducts = async (req, res, next) => {

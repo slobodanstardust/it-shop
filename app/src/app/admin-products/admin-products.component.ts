@@ -4,6 +4,7 @@ import { Product } from '../models/product';
 import { ProductsData } from '../models/products-data';
 import { ProductsService } from '../services/products.service';
 
+
 @Component({
   selector: 'its-admin-products',
   templateUrl: './admin-products.component.html',
@@ -99,6 +100,10 @@ export class AdminProductsComponent implements OnInit {
   }
 
   askDelete (productId: string): void {
+    this.clickedProduct = this.products.find(({ _id }) => _id === productId);
+  }
+
+  showView (productId: string): void {
     this.clickedProduct = this.products.find(({ _id }) => _id === productId);
   }
 

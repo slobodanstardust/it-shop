@@ -1,0 +1,26 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="staticBackdropLabel">{{ clickedProduct?.brand }} <small class="text-muted">{{ clickedProduct?.name }}</small></h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body" *ngIf="clickedProduct">
+      <strong>ID: {{ clickedProduct._id }}</strong><br>
+      Category: {{ clickedProduct.category }}<br>
+      Name: {{ clickedProduct.brand }} {{ clickedProduct.name }}<br>
+      Processor: {{ clickedProduct.processor }}<br>
+      Memory: {{ clickedProduct.memory }}<br>
+      Storage: {{ clickedProduct.storage }}<br>
+      Display: {{ clickedProduct.display }}<br>
+      Price: {{ clickedProduct.price | number }}
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" routerLink="/administrator/products/edit/{{ clickedProduct?._id }}">Edit</button>
+      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onDelete()">Delete</button>
+    </div>
+  </div>
+</div>
