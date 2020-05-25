@@ -123,7 +123,7 @@ exports.postProduct = (req, res, next) => {
     storage: req.body.storage,
     display: req.body.display,
     price: req.body.price,
-    imagePath: req.file.path
+    imagePath: req.file && req.file.path || ''
   })
 
   product.save()
@@ -167,22 +167,24 @@ exports.getProductsById = (req, res, next) => {
 // PUT
 exports.putProduct = (req, res, next) => {
   const id = req.params.id
-  const newPath = req.file.path
 
-  req.body.imagePath = newPath // Inserting new imagePath into the req.body.
+  if (req.file) {
+    const newPath = req.file.path  
+    req.body.imagePath = newPath // Inserting new imagePath into the req.body.
 
-  Product.findById(id) // For deleting old image from 'uploads' folder.
-  .exec()
-  .then(doc => {
-    const path = `./${doc.imagePath}`
-    fs.unlink(path, (err) => {
-      if (err) {
-        console.error(err)
-        return
-      }    
-      //file removed
+    Product.findById(id) // For deleting old image from 'uploads' folder.
+    .exec()
+    .then(doc => {
+      const path = `./${doc.imagePath}`
+      fs.unlink(path, (err) => {
+        if (err) {
+          console.error(err)
+          return
+        }    
+        //file removed
+      })
     })
-  })
+  }
 
   Product.findByIdAndUpdate({ _id: id }, req.body)
     .exec()
@@ -192,9 +194,6 @@ exports.putProduct = (req, res, next) => {
       .exec()
       .then(doc => {
         if (doc) {
-          console.log(doc)
-          doc.imagePath = newPath
-          console.log(doc)
           res.status(201).json({
             message: 'Documnet updated.',
             document: doc
@@ -219,14 +218,16 @@ exports.deleteProduct = (req, res, next) => {
     .then(doc => {
       if (doc) {
         deleted = doc
+
         const path = `./${deleted.imagePath}`
-        fs.unlink(path, (err) => {
+        fs.unlink(path, (err) => { // Deleting image file.
           if (err) {
             console.error(err)
             return
           }    
           //file removed
         })
+
         Product.deleteOne({ _id: id })
           .exec()
           .then(result => {

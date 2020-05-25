@@ -10,7 +10,7 @@
     <div class="modal-body" *ngIf="clickedProduct">
       <div class="row">
         <div class="col">
-          <img src="http://localhost:3000/{{ clickedProduct.imagePath }}" alt="{{ clickedProduct.brand }} {{ clickedProduct.name }}" width="100%">
+          <img *ngIf="clickedProduct.imagePath" src="http://localhost:3000/{{ clickedProduct.imagePath }}" alt="{{ clickedProduct.brand }} {{ clickedProduct.name }}" width="100%">
         </div>
       </div>
       <div class="row">
@@ -38,7 +38,7 @@
       Storage: {{ clickedProduct.storage }}<br>
       Display: {{ clickedProduct.display }}<br>
       Price: {{ clickedProduct.price | number }}<br>
-      <img src="http://localhost:3000/{{ clickedProduct.imagePath }}" alt="{{ clickedProduct.brand }} {{ clickedProduct.name }}" width="300px">
+      <img *ngIf="clickedProduct.imagePath" src="http://localhost:3000/{{ clickedProduct.imagePath }}" alt="{{ clickedProduct.brand }} {{ clickedProduct.name }}" width="300px">
     </div>
 
     <div class="modal-footer">

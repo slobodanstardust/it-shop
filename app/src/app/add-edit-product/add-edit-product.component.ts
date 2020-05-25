@@ -36,6 +36,7 @@ export class AddEditProductComponent implements OnInit {
     image: [''],
     imagePath: ['']
   })
+
 /* 
   addEdit: FormGroup = this.formBuilder.group({
     _id: [''],
@@ -95,7 +96,6 @@ export class AddEditProductComponent implements OnInit {
       this.productsService.addProduct(formData).subscribe((data: Product) => {
         this.activeProduct = data;
         this.addAlert = 'flex';
-        console.log(this.activeProduct)
       });
     }
   }

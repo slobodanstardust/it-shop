@@ -46,7 +46,6 @@ export class AdminProductsComponent implements OnInit {
       this.pageCount = data.pageCount;
       this.count = data.count;
       this.setPagination();
-      console.log(this.products)
     })
   }
 
@@ -106,7 +105,6 @@ export class AdminProductsComponent implements OnInit {
 
   showView (productId: string): void {
     this.clickedProduct = this.products.find(({ _id }) => _id === productId);
-    console.log(this.clickedProduct)
   }
 
   onDelete (productId: string): void {
