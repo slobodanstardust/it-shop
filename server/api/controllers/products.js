@@ -1,6 +1,36 @@
 const mongoose = require('mongoose')
-const Product = require('../models/product')
 const multer = require('multer')
+const fs = require('fs')
+const productsData = require('../../products-db')
+const Product = require('../models/product')
+
+mongoose.set('useFindAndModify', false); // Because findByIdAndUpdate is depreciated. This is the fix.
+
+// Multer confuguration
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+    const uniquePrefix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null, `${uniquePrefix}-${file.originalname}`)
+  }
+})
+
+function fileFilter (req, file, cb) {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') cb(null, true)
+  else cb(new Error('Wrong file format.'), false)
+}
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5 // File size in bites.
+  },
+  fileFilter: fileFilter
+})
+
+exports.fileUpload = upload.single('image')
 
 // GET
 exports.getProducts = async (req, res, next) => {
@@ -24,17 +54,33 @@ exports.getProducts = async (req, res, next) => {
 
   if (req.query.reset == 'yes') { // For reseting the collection. Parameters: { reset: 'yes' }.
     let response = ''
-    Product.deleteMany({})
+
+    Product.find() // For deleting images from 'uploads' folder.
+      .exec()
+      .then(docs => {
+        docs.forEach((item) => {
+          const path = `./${item.imagePath}`
+          fs.unlink(path, (err) => {
+            if (err) {
+              console.error(err)
+              return
+            }    
+            //file removed
+          })
+        })
+      })
+
+    Product.deleteMany({}) // For deleting all documents.
       .exec()
       .then(result => response = result)
 
-    Product.insertMany(productsData)
+    Product.insertMany(productsData) // For loadind starter collection.
       .then(docs => {
-          console.log(docs)
-          res.status(200).json({
-            message: 'Old data deleted, and new data inserted.',
-            insertedDocuments: docs
-          })
+        console.log(docs)
+        res.status(200).json({
+          message: 'Old data deleted, and new data inserted.',
+          insertedDocuments: docs
+        })
       })
       .catch(err => {
         console.log(err)
@@ -44,7 +90,7 @@ exports.getProducts = async (req, res, next) => {
     Product.find(filter) // Filter by: brand, procesor, memory, storage, display.
       .skip((page - 1) * pageSize)
       .limit(pageSize)
-      .select('_id category brand name processor memory storage display price')
+      .select('_id category brand name processor memory storage display price imagePath')
       .sort(sort) // Values allowed are asc, desc, ascending, descending, 1, and -1.
       .exec()
       .then(docs => {
@@ -76,13 +122,14 @@ exports.postProduct = (req, res, next) => {
     memory: req.body.memory,
     storage: req.body.storage,
     display: req.body.display,
-    price: req.body.price
+    price: req.body.price,
+    imagePath: req.file.path
   })
 
   product.save()
     .then(() => {
       Product.findOne({ _id: product._id})
-        .select('_id category brand name processor memory storage display price')
+        .select('_id category brand name processor memory storage display price imagePath')
         .exec()
         .then(result => {
           console.log(result)
@@ -103,7 +150,7 @@ exports.getProductsById = (req, res, next) => {
   const id = req.params.id
 
   Product.findById(id)
-    .select('_id category brand name processor memory storage display price')
+    .select('_id category brand name processor memory storage display price imagePath')
     .exec()
     .then(doc => {
       if (doc) {
@@ -120,15 +167,33 @@ exports.getProductsById = (req, res, next) => {
 // PUT
 exports.putProduct = (req, res, next) => {
   const id = req.params.id
+  const newPath = req.file.path
+
+  req.body.imagePath = newPath // Inserting new imagePath into the req.body.
+
+  Product.findById(id) // For deleting old image from 'uploads' folder.
+  .exec()
+  .then(doc => {
+    const path = `./${doc.imagePath}`
+    fs.unlink(path, (err) => {
+      if (err) {
+        console.error(err)
+        return
+      }    
+      //file removed
+    })
+  })
 
   Product.findByIdAndUpdate({ _id: id }, req.body)
     .exec()
     .then(() => {
       Product.findOne({ _id: id })
-      .select('_id category brand name processor memory storage display price')
+      .select('_id category brand name processor memory storage display price imagePath')
       .exec()
       .then(doc => {
         if (doc) {
+          console.log(doc)
+          doc.imagePath = newPath
           console.log(doc)
           res.status(201).json({
             message: 'Documnet updated.',
@@ -149,11 +214,19 @@ exports.deleteProduct = (req, res, next) => {
   let deleted = {}
 
   Product.findOne({ _id: id })
-    .select('_id category brand name processor memory storage display price')
+    .select('_id category brand name processor memory storage display price imagePath')
     .exec()
     .then(doc => {
       if (doc) {
         deleted = doc
+        const path = `./${deleted.imagePath}`
+        fs.unlink(path, (err) => {
+          if (err) {
+            console.error(err)
+            return
+          }    
+          //file removed
+        })
         Product.deleteOne({ _id: id })
           .exec()
           .then(result => {

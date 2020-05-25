@@ -25,6 +25,20 @@ export class AddEditProductComponent implements OnInit {
 
   addEdit: FormGroup = this.formBuilder.group({
     _id: [''],
+    category: [''],
+    brand: [''],
+    name: [''],
+    processor: [''],
+    memory: [''],
+    storage: [''],
+    display: [''],
+    price: [null],
+    image: [''],
+    imagePath: ['']
+  })
+/* 
+  addEdit: FormGroup = this.formBuilder.group({
+    _id: [''],
     category: ['', [Validators.required]],
     brand: ['', [Validators.required]],
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -33,7 +47,7 @@ export class AddEditProductComponent implements OnInit {
     storage: ['', [Validators.required, Validators.pattern(this.memoryRe)]],
     display: ['', [Validators.required, Validators.pattern(this.displayRe)]],
     price: [null, [Validators.required, Validators.min(1)]]
-  })
+  }) */
   
   constructor(
     private formBuilder: FormBuilder,
@@ -52,9 +66,15 @@ export class AddEditProductComponent implements OnInit {
   }
   
   onUpdate (): void {
+    const formData = new FormData();
+    formData.append('_id', this.activeProduct._id);
+    formData.append('name', this.addEdit.get('name').value);
+    formData.append('image', this.addEdit.get('image').value);
+    formData.append('imagePath', this.addEdit.get('imagePath').value);
+
     this.submitted = true;
     if (this.addEdit.valid) {
-      this.productsService.updateProduct(this.addEdit.value).subscribe((data: Product) => {
+      this.productsService.updateProduct(formData).subscribe((data: Product) => {
         this.activeProduct = data;
         this.updateAlert = 'flex';
       });
@@ -66,11 +86,16 @@ export class AddEditProductComponent implements OnInit {
   }
   
   onSubmit (): void {
+    const formData = new FormData();
+    formData.append('name', this.addEdit.get('name').value);
+    formData.append('image', this.addEdit.get('image').value);
+
     this.submitted = true;
     if (this.addEdit.valid) {
-      this.productsService.addProduct(this.addEdit.value).subscribe((data: Product) => {
+      this.productsService.addProduct(formData).subscribe((data: Product) => {
         this.activeProduct = data;
         this.addAlert = 'flex';
+        console.log(this.activeProduct)
       });
     }
   }
@@ -86,5 +111,6 @@ export class AddEditProductComponent implements OnInit {
 
   onFileSelected (files: FileList): void {
     this.imageFile = files[0];
+    this.addEdit.get('image').setValue(this.imageFile);
   }
 }

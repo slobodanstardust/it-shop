@@ -5,11 +5,11 @@ const router = express.Router()
 
 router.route('/')
   .get(productsController.getProducts)
-  .post(productsController.postProduct)
+  .post(productsController.fileUpload, productsController.postProduct)
 
 router.route('/:id')
   .get(productsController.getProductsById)
-  .put(productsController.putProduct)
+  .put(productsController.fileUpload, productsController.putProduct)
   .delete(productsController.deleteProduct)
 
 module.exports = router

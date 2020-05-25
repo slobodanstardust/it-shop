@@ -34,15 +34,15 @@ export class ProductsService {
     return this.httpClient.get(PRODUCTS_URL + '/' + productId).pipe(map((data: any) => new Product(data)));
   }
 
-  updateProduct (product: Product): Observable<Product> {
-    return this.httpClient.put(PRODUCTS_URL + '/' + product._id, product).pipe(map((data: any) => new Product(data.document)));
+  updateProduct (product: FormData): Observable<Product> {
+    return this.httpClient.put(PRODUCTS_URL + '/' + product.get('_id'), product).pipe(map((data: any) => new Product(data.document)));
   }
 
   deleteProduct (productId: string): Observable<Product> {
     return this.httpClient.delete(PRODUCTS_URL + '/' + productId).pipe(map((data: any) => new Product(data.document)));
   }
 
-  addProduct (newProduct: Product): Observable<Product> {
+  addProduct (newProduct: FormData): Observable<Product> {
     return this.httpClient.post(PRODUCTS_URL + '/', newProduct).pipe(map((data: any) => new Product(data.document)));
   }
 

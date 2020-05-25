@@ -8,6 +8,7 @@ export class Product {
   storage: string;
   display: string;
   price: number;
+  imagePath: string;
 
   constructor (newObject: any) {
     this._id = newObject && newObject._id || '';
@@ -19,5 +20,6 @@ export class Product {
     this.storage = newObject && newObject.storage || '';
     this.display = newObject && newObject.display || '';
     this.price  = newObject && newObject.price || null;
+    this.imagePath  = newObject && newObject.imagePath || '';
   }
 }
