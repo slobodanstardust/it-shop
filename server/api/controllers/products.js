@@ -55,7 +55,7 @@ exports.getProducts = async (req, res, next) => {
   if (req.query.reset == 'yes') { // For reseting the collection. Parameters: { reset: 'yes' }.
     let response = ''
 
-    Product.find() // For deleting images from 'uploads' folder.
+    Product.find() // For deleting images associated to products, from 'uploads' folder.
       .exec()
       .then(docs => {
         docs.forEach((item) => {
@@ -113,6 +113,9 @@ exports.getProducts = async (req, res, next) => {
 
 // POST
 exports.postProduct = (req, res, next) => {
+  if (isNaN(req.body.price)) req.body.price = 0
+  else req.body.price = Number(req.body.price)
+  
   const product = new Product({
     _id: mongoose.Types.ObjectId(),
     category: req.body.category,
@@ -122,7 +125,7 @@ exports.postProduct = (req, res, next) => {
     memory: req.body.memory,
     storage: req.body.storage,
     display: req.body.display,
-    price: req.body.price,
+    price: Number(req.body.price),
     imagePath: req.file && req.file.path || ''
   })
 
@@ -185,6 +188,9 @@ exports.putProduct = (req, res, next) => {
       })
     })
   }
+
+  if (isNaN(req.body.price)) req.body.price = 0
+  else req.body.price = Number(req.body.price)
 
   Product.findByIdAndUpdate({ _id: id }, req.body)
     .exec()

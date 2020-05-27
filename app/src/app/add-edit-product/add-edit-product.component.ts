@@ -13,6 +13,7 @@ import { Product } from '../models/product';
 
 export class AddEditProductComponent implements OnInit {
   productId: string;
+  addedProduct: Product;
   activeProduct: Product;
   imageFile: File;
 
@@ -36,7 +37,9 @@ export class AddEditProductComponent implements OnInit {
     image: [''],
     imagePath: ['']
   })
-
+  
+  formData: FormData;
+  
 /* 
   addEdit: FormGroup = this.formBuilder.group({
     _id: [''],
@@ -62,20 +65,17 @@ export class AddEditProductComponent implements OnInit {
       this.productsService.getProductById(this.productId).subscribe((data: Product) => {
         this.activeProduct = data;
         this.addEdit.patchValue(this.activeProduct);
+        console.log(this.activeProduct)
       })
     }
   }
   
   onUpdate (): void {
-    const formData = new FormData();
-    formData.append('_id', this.activeProduct._id);
-    formData.append('name', this.addEdit.get('name').value);
-    formData.append('image', this.addEdit.get('image').value);
-    formData.append('imagePath', this.addEdit.get('imagePath').value);
+    this.formGroupToFormData(this.addEdit);
 
     this.submitted = true;
     if (this.addEdit.valid) {
-      this.productsService.updateProduct(formData).subscribe((data: Product) => {
+      this.productsService.updateProduct(this.formData).subscribe((data: Product) => {
         this.activeProduct = data;
         this.updateAlert = 'flex';
       });
@@ -91,10 +91,12 @@ export class AddEditProductComponent implements OnInit {
     formData.append('name', this.addEdit.get('name').value);
     formData.append('image', this.addEdit.get('image').value);
 
+    this.formGroupToFormData(this.addEdit);
+
     this.submitted = true;
     if (this.addEdit.valid) {
       this.productsService.addProduct(formData).subscribe((data: Product) => {
-        this.activeProduct = data;
+        this.addedProduct = data;
         this.addAlert = 'flex';
       });
     }
@@ -112,5 +114,27 @@ export class AddEditProductComponent implements OnInit {
   onFileSelected (files: FileList): void {
     this.imageFile = files[0];
     this.addEdit.get('image').setValue(this.imageFile);
+  }
+
+  formGroupToFormData(formGroup: FormGroup): void {
+    this.formData = new FormData();
+
+    Object.keys(formGroup.controls).forEach((key: string) => {
+      const abstractControl = formGroup.get(key);
+
+      /*    
+      If the control is an instance of FormGroup, i.e a nested FormGroup,
+      then recursively call this same method (logKeyValuePairs) passing it
+      the FormGroup so we can get to the form controls in it.
+      */
+      if (abstractControl instanceof FormGroup) {
+        this.formGroupToFormData(abstractControl);
+      }
+      else { // If the control is not a FormGroup then we know it's a FormControl
+        this.formData.append(key, abstractControl.value);
+      }
+    });
+
+    this.formData.set('price', String(this.addEdit.get('price').value)); // FormData can't send integers.
   }
 }

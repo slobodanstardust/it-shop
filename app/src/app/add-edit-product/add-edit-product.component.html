@@ -7,8 +7,8 @@
 </div>
 
 <!--Add alert -->
-<div class="alert alert-success alert-dismissible fade show mt-3" role="alert" [style.display]="addAlert" *ngIf="activeProduct">
-  <strong>Success!&nbsp;</strong> You've added the product with the ID:&nbsp;<strong>{{ activeProduct._id }}</strong>.
+<div class="alert alert-success alert-dismissible fade show mt-3" role="alert" [style.display]="addAlert" *ngIf="addedProduct">
+  <strong>Success!&nbsp;</strong> You've added the product with the ID:&nbsp;<strong>{{ addedProduct._id }}</strong>.
   <button type="button" class="close" aria-label="Close" (click)="dismissAlert('add')">
     <span aria-hidden="true">&times;</span>
   </button>

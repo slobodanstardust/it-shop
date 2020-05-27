@@ -99,11 +99,11 @@ export class AdminProductsComponent implements OnInit {
     this.loadProducts();
   }
 
-  askDelete (productId: string): void {
+  showView (productId: string): void {
     this.clickedProduct = this.products.find(({ _id }) => _id === productId);
   }
 
-  showView (productId: string): void {
+  askDelete (productId: string): void {
     this.clickedProduct = this.products.find(({ _id }) => _id === productId);
   }
 
@@ -114,14 +114,14 @@ export class AdminProductsComponent implements OnInit {
       this.deleteAlert = 'block';
     })
   }
+  
+  resetProductsData (): void {
+    const parameters = { reset: 'yes' };
+    this.productsService.resetProducts(parameters).subscribe((data: Product[]) => this.resetAlert = 'block');
+  }
 
   dismissAlert (element: string): void {
     if (element === 'delete') this.deleteAlert = 'none';
     if (element === 'reset') this.resetAlert = 'none';
-  }
-
-  resetProductsData (): void {
-    const parameters = { reset: 'yes' };
-    this.productsService.resetProducts(parameters).subscribe((data: Product[]) => this.resetAlert = 'block');
   }
 }
