@@ -23,8 +23,8 @@ export class ProductsService {
         params: new HttpParams()
           .set('page', parameters.page || '')
           .set('pageSize', parameters.pageSize || '')
-          // .set('sort', parameters.sort || '')
-          // .set('sortDirection', parameters.sortDirection || '')
+          .set('name', parameters.name || '')
+          .set('price', parameters.price || '')
       }
     }
     return this.httpClient.get(PRODUCTS_URL, queryParameters).pipe(map((data: any) => new ProductsData(data)));

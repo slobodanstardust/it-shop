@@ -1,4 +1,4 @@
-<div class="modal-dialog" role="document" width="50%">
+<div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">
       <h5 class="modal-title" id="staticBackdropLabel">{{ clickedProduct?.brand }} <small class="text-muted">{{ clickedProduct?.name }}</small></h5>
@@ -13,6 +13,7 @@
           <img *ngIf="clickedProduct.imagePath" src="http://localhost:3000/{{ clickedProduct.imagePath }}" alt="{{ clickedProduct.brand }} {{ clickedProduct.name }}" width="100%">
         </div>
       </div>
+
       <div class="row">
         <div class="col-4">
           <strong>ID:</strong>
@@ -21,6 +22,16 @@
           {{ clickedProduct._id }}
         </div>
       </div>
+      
+      <div class="row">
+        <div class="col-4">
+          <strong>Category:</strong>
+        </div>
+        <div class="col-8">
+          {{ clickedProduct.category }}
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-4">
           <strong>Name:</strong>
@@ -30,15 +41,50 @@
         </div>
       </div>
 
-      <strong>ID: {{ clickedProduct._id }}</strong><br>
-      Category: {{ clickedProduct.category }}<br>
-      Name: {{ clickedProduct.brand }} {{ clickedProduct.name }}<br>
-      Processor: {{ clickedProduct.processor }}<br>
-      Memory: {{ clickedProduct.memory }}<br>
-      Storage: {{ clickedProduct.storage }}<br>
-      Display: {{ clickedProduct.display }}<br>
-      Price: {{ clickedProduct.price | number }}<br>
-      <img *ngIf="clickedProduct.imagePath" src="http://localhost:3000/{{ clickedProduct.imagePath }}" alt="{{ clickedProduct.brand }} {{ clickedProduct.name }}" width="300px">
+      <div class="row">
+        <div class="col-4">
+          <strong>Processor:</strong>
+        </div>
+        <div class="col-8">
+          {{ clickedProduct.processor }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <strong>Memory:</strong>
+        </div>
+        <div class="col-8">
+          {{ clickedProduct.memory }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <strong>Storage:</strong>
+        </div>
+        <div class="col-8">
+          {{ clickedProduct.storage }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <strong>Display:</strong>
+        </div>
+        <div class="col-8">
+          {{ clickedProduct.display }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <strong>Price:</strong>
+        </div>
+        <div class="col-8">
+          {{ clickedProduct.price | number }}
+        </div>
+      </div>
     </div>
 
     <div class="modal-footer">

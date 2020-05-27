@@ -24,23 +24,8 @@ export class AddEditProductComponent implements OnInit {
   memoryRe: RegExp = /^\d{1,3}GB|^\dTB/;
   displayRe: RegExp = /^\d{1,2}\.?\d? inch/;
 
-  addEdit: FormGroup = this.formBuilder.group({
-    _id: [''],
-    category: [''],
-    brand: [''],
-    name: [''],
-    processor: [''],
-    memory: [''],
-    storage: [''],
-    display: [''],
-    price: [null],
-    image: [''],
-    imagePath: ['']
-  })
-  
-  formData: FormData;
-  
-/* 
+  formData: FormData;  
+
   addEdit: FormGroup = this.formBuilder.group({
     _id: [''],
     category: ['', [Validators.required]],
@@ -50,8 +35,10 @@ export class AddEditProductComponent implements OnInit {
     memory: ['', [Validators.required, Validators.pattern(this.memoryRe)]],
     storage: ['', [Validators.required, Validators.pattern(this.memoryRe)]],
     display: ['', [Validators.required, Validators.pattern(this.displayRe)]],
-    price: [null, [Validators.required, Validators.min(1)]]
-  }) */
+    price: [null, [Validators.required, Validators.min(1)]],
+    image: [''],
+    imagePath: ['']
+  })
   
   constructor(
     private formBuilder: FormBuilder,
@@ -87,15 +74,11 @@ export class AddEditProductComponent implements OnInit {
   }
   
   onSubmit (): void {
-    const formData = new FormData();
-    formData.append('name', this.addEdit.get('name').value);
-    formData.append('image', this.addEdit.get('image').value);
-
     this.formGroupToFormData(this.addEdit);
 
     this.submitted = true;
     if (this.addEdit.valid) {
-      this.productsService.addProduct(formData).subscribe((data: Product) => {
+      this.productsService.addProduct(this.formData).subscribe((data: Product) => {
         this.addedProduct = data;
         this.addAlert = 'flex';
       });

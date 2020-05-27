@@ -17,7 +17,9 @@ export class AdminProductsComponent implements OnInit {
   count: number;
   parameters: any = {
     page: null,
-    pageSize: null
+    pageSize: null,
+    name: '',
+    price: ''
   }
 
   nextDisabled: boolean;
@@ -123,5 +125,19 @@ export class AdminProductsComponent implements OnInit {
   dismissAlert (element: string): void {
     if (element === 'delete') this.deleteAlert = 'none';
     if (element === 'reset') this.resetAlert = 'none';
+  }
+
+  onSortName (): void {
+    this.parameters.price = '';
+    if (this.parameters.name === 'desc' || !this.parameters.name) this.parameters.name = 'asc';
+    else this.parameters.name = 'desc';
+    this.loadProducts();
+  }
+
+  onSortPrice (): void {
+    this.parameters.name = '';
+    if (this.parameters.price === 'desc' || !this.parameters.price) this.parameters.price = 'asc';
+    else this.parameters.price = 'desc';
+    this.loadProducts();
   }
 }
