@@ -205,9 +205,16 @@
   </div>
 
   <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Image</label>
+    <label class="col-sm-2 col-form-label">Image:</label>
     <div class="col-sm-10">
       <input type="file" class="form-control-file" (change)="onFileSelected($event.target.files)">
+      
+      <!-- Image validation warning -->
+      <small
+        class="text-danger"
+        *ngIf="!imageTest">
+        Maximum image size is 5MB. File format must be JPG or PNG.
+      </small>
     </div>
   </div>
 

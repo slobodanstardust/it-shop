@@ -14,6 +14,7 @@ import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { AddEditProductComponent } from './add-edit-product/add-edit-product.component';
 import { ViewModalComponent } from './view-modal/view-modal.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { NavigationComponent } from './navigation/navigation.component';
     AdminOrdersComponent,
     AddEditProductComponent,
     ViewModalComponent,
-    NavigationComponent
+    NavigationComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

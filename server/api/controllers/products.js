@@ -59,14 +59,16 @@ exports.getProducts = async (req, res, next) => {
       .exec()
       .then(docs => {
         docs.forEach((item) => {
-          const path = `./${item.imagePath}`
-          fs.unlink(path, (err) => {
-            if (err) {
-              console.error(err)
-              return
-            }    
-            //file removed
-          })
+          if (!item.fixed) {
+            const path = `./${item.imagePath}`
+            fs.unlink(path, (err) => {
+              if (err) {
+                console.error(err)
+                return
+              }    
+              //file removed
+            })
+          }
         })
       })
 
@@ -126,7 +128,8 @@ exports.postProduct = (req, res, next) => {
     storage: req.body.storage,
     display: req.body.display,
     price: Number(req.body.price),
-    imagePath: req.file && req.file.path || ''
+    imagePath: req.file && req.file.path || '',
+    fixed: req.fixed
   })
 
   product.save()
@@ -178,14 +181,16 @@ exports.putProduct = (req, res, next) => {
     Product.findById(id) // For deleting old image from 'uploads' folder.
     .exec()
     .then(doc => {
-      const path = `./${doc.imagePath}`
-      fs.unlink(path, (err) => {
-        if (err) {
-          console.error(err)
-          return
-        }    
-        //file removed
-      })
+      if (!doc.fixed) {
+        const path = `./${doc.imagePath}`
+        fs.unlink(path, (err) => {
+          if (err) {
+            console.error(err)
+            return
+          }    
+          //file removed
+        })
+      }
     })
   }
 
@@ -219,20 +224,22 @@ exports.deleteProduct = (req, res, next) => {
   let deleted = {}
 
   Product.findOne({ _id: id })
-    .select('_id category brand name processor memory storage display price imagePath')
+    .select('_id category brand name processor memory storage display price imagePath fixed')
     .exec()
     .then(doc => {
       if (doc) {
         deleted = doc
 
-        const path = `./${deleted.imagePath}`
-        fs.unlink(path, (err) => { // Deleting image file.
-          if (err) {
-            console.error(err)
-            return
-          }    
-          //file removed
-        })
+        if (!doc.fixed) { // Deleting image file.
+          const path = `./${doc.imagePath}`
+          fs.unlink(path, (err) => {
+            if (err) {
+              console.error(err)
+              return
+            }    
+            //file removed
+          })
+        }
 
         Product.deleteOne({ _id: id })
           .exec()

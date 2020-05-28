@@ -11,7 +11,8 @@ const productSchema = new mongoose.Schema({
   storage: { type: String, required: true },
   display: { type: String, required: true },
   price: { type: Number, required: true },
-  imagePath: { type: String } // For uploading an image.
+  imagePath: { type: String }, // For uploading an image.
+  fixed: { type: Boolean, default: false } // For the 'reset' part.
 })
 
 module.exports = mongoose.model('Product', productSchema)

@@ -20,6 +20,7 @@ export class AddEditProductComponent implements OnInit {
   updateAlert: string = 'none';
   addAlert: string = 'none';
   submitted: boolean = false;
+  imageTest: boolean = true;
 
   memoryRe: RegExp = /^\d{1,3}GB|^\dTB/;
   displayRe: RegExp = /^\d{1,2}\.?\d? inch/;
@@ -52,7 +53,6 @@ export class AddEditProductComponent implements OnInit {
       this.productsService.getProductById(this.productId).subscribe((data: Product) => {
         this.activeProduct = data;
         this.addEdit.patchValue(this.activeProduct);
-        console.log(this.activeProduct)
       })
     }
   }
@@ -61,7 +61,7 @@ export class AddEditProductComponent implements OnInit {
     this.formGroupToFormData(this.addEdit);
 
     this.submitted = true;
-    if (this.addEdit.valid) {
+    if (this.addEdit.valid && this.imageTest) {
       this.productsService.updateProduct(this.formData).subscribe((data: Product) => {
         this.activeProduct = data;
         this.updateAlert = 'flex';
@@ -95,8 +95,13 @@ export class AddEditProductComponent implements OnInit {
   }
 
   onFileSelected (files: FileList): void {
-    this.imageFile = files[0];
-    this.addEdit.get('image').setValue(this.imageFile);
+    if (files[0].size <= (1024 * 1024 * 5) && files[0].type === 'image/jpeg' || files[0].type === 'image/png') {
+      this.imageTest = true;
+      this.imageFile = files[0];
+      this.addEdit.get('image').setValue(this.imageFile);
+    } else {
+      this.imageTest = false;
+    }
   }
 
   formGroupToFormData(formGroup: FormGroup): void {

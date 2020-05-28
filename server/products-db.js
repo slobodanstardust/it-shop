@@ -7,7 +7,9 @@ const productsData = [
     "memory": "8GB",
     "storage": "256GB",
     "display": "15.6 inch",
-    "price": "58000"
+    "price": "58000",
+    "imagePath": "images/lenovo-thinkpad.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -17,7 +19,9 @@ const productsData = [
     "memory": "4GB",
     "storage": "128GB",
     "display": "15.6 inch",
-    "price": "42000"
+    "price": "42000",
+    "imagePath": "images/lenovo-ideapad.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -27,7 +31,9 @@ const productsData = [
     "memory": "8GB",
     "storage": "128GB",
     "display": "15.6 inch",
-    "price": "45000"
+    "price": "45000",
+    "imagePath": "images/hp-pavilion.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -37,7 +43,9 @@ const productsData = [
     "memory": "4GB",
     "storage": "512GB",
     "display": "14 inch",
-    "price": "93000"
+    "price": "93000",
+    "imagePath": "images/hp-probook.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -47,7 +55,9 @@ const productsData = [
     "memory": "16GB",
     "storage": "1TB",
     "display": "15.6 inch",
-    "price": "200000"
+    "price": "200000",
+    "imagePath": "images/hp-spectre.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -57,7 +67,9 @@ const productsData = [
     "memory": "8GB",
     "storage": "512GB",
     "display": "15.6 inch",
-    "price": "78000"
+    "price": "78000",
+    "imagePath": "images/acer-swift.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -67,7 +79,9 @@ const productsData = [
     "memory": "4GB",
     "storage": "128GB",
     "display": "15.6 inch",
-    "price": "39000"
+    "price": "39000",
+    "imagePath": "images/acer-aspire.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -77,7 +91,9 @@ const productsData = [
     "memory": "4GB",
     "storage": "128GB",
     "display": "15.6 inch",
-    "price": "37000"
+    "price": "37000",
+    "imagePath": "images/acer-aspire.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -87,7 +103,9 @@ const productsData = [
     "memory": "8GB",
     "storage": "256GB",
     "display": "15.6 inch",
-    "price": "53000"
+    "price": "53000",
+    "imagePath": "images/asus-zenbook.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -97,7 +115,9 @@ const productsData = [
     "memory": "8GB",
     "storage": "256GB",
     "display": "14 inch",
-    "price": "82000"
+    "price": "82000",
+    "imagePath": "images/lenovo-yoga.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -107,7 +127,9 @@ const productsData = [
     "memory": "8GB",
     "storage": "512GB",
     "display": "15.6 inch",
-    "price": "141000"
+    "price": "141000",
+    "imagePath": "images/asus-tuf.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -117,7 +139,9 @@ const productsData = [
     "memory": "16GB",
     "storage": "1TB",
     "display": "15.6 inch",
-    "price": "263000"
+    "price": "263000",
+    "imagePath": "images/asus-rog.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -127,7 +151,9 @@ const productsData = [
     "memory": "8GB",
     "storage": "256GB",
     "display": "15.6 inch",
-    "price": "63000"
+    "price": "63000",
+    "imagePath": "images/dell-vostro.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -137,7 +163,9 @@ const productsData = [
     "memory": "16GB",
     "storage": "512GB",
     "display": "15.6 inch",
-    "price": "185000"
+    "price": "185000",
+    "imagePath": "images/dell-alienware.jpg",
+    "fixed": "true"
   },
   {
     "category": "notebook",
@@ -147,7 +175,9 @@ const productsData = [
     "memory": "16GB",
     "storage": "512GB",
     "display": "17.3 inch",
-    "price": "174000"
+    "price": "174000",
+    "imagePath": "images/hp-omen.jpg",
+    "fixed": "true"
   },
 ]
 
