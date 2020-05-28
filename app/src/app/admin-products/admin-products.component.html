@@ -14,37 +14,14 @@
   </button>
 </div>
 
+<its-pagination [productsData]="productsData" (pageChange)="onPageChange($event)"></its-pagination>
+
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
       <th scope="col" colspan="6" class="text-center align-middle">Products</th>
     </tr>
   </thead>
-
-  <!-- Table size and navigation -->
-  <tbody>
-    <tr>
-      <td scope="col" colspan="1" class="text-center">
-        Table size:&nbsp;
-        <div class="btn-group btn-group-sm" role="group" aria-label="Pagination buttons">
-          <button type="button" class="btn btn-secondary" (click)="changePageSize(5)">5</button>
-          <button type="button" class="btn btn-secondary" (click)="changePageSize(10)">10</button>
-          <button type="button" class="btn btn-secondary" (click)="changePageSize(15)">15</button>
-        </div>
-        &nbsp;Current size: {{ parameters.pageSize }}
-      </td>
-      
-      <td scope="col" colspan="5" class="text-center">
-        <div class="btn-group btn-group-sm" role="group" aria-label="Pagination buttons">
-          <button type="button" class="btn btn-secondary" (click)="firstPage()" [disabled]="firstDisabled">First</button>
-          <button type="button" class="btn btn-secondary" (click)="previousPage()" [disabled]="previousDisabled">Previou</button>
-          <button type="button" class="btn btn-info">On page {{ parameters.page }} of {{ pageCount }}</button>
-          <button type="button" class="btn btn-secondary" (click)="nextPage()" [disabled]="nextDisabled">Next</button>
-          <button type="button" class="btn btn-secondary" (click)="lastPage()" [disabled]="lastDisabled">Last</button>
-        </div>
-      </td>
-    </tr>
-  </tbody>
 
   <thead class="thead-dark">
     <tr>

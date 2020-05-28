@@ -88,7 +88,7 @@ exports.getProducts = async (req, res, next) => {
         console.log(err)
         res.status(500).json({ error: err })
       })
-  } else {
+  } else { // Normal GET.
     Product.find(filter) // Filter by: brand, procesor, memory, storage, display.
       .skip((page - 1) * pageSize)
       .limit(pageSize)

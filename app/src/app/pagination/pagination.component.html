@@ -1,1 +1,21 @@
-<p>pagination works!</p>
+<div class="row">
+  <div class="col-4">
+    Table size:&nbsp;
+    <div class="btn-group btn-group-sm" role="group" aria-label="Pagination buttons">
+      <button type="button" class="btn btn-secondary" (click)="changePageSize(5)">5</button>
+      <button type="button" class="btn btn-secondary" (click)="changePageSize(10)">10</button>
+      <button type="button" class="btn btn-secondary" (click)="changePageSize(15)">15</button>
+    </div>
+    &nbsp;Current size: {{ paginationData.pageSize }}
+  </div>
+
+  <div class="col-8">
+    <div class="btn-group btn-group-sm" role="group" aria-label="Pagination buttons">
+      <button type="button" class="btn btn-secondary" (click)="firstPage()" [disabled]="firstDisabled">First</button>
+      <button type="button" class="btn btn-secondary" (click)="previousPage()" [disabled]="previousDisabled">Previou</button>
+      <button type="button" class="btn btn-info">On page {{ paginationData.page }} of {{ pageCount }}</button>
+      <button type="button" class="btn btn-secondary" (click)="nextPage()" [disabled]="nextDisabled">Next</button>
+      <button type="button" class="btn btn-secondary" (click)="lastPage()" [disabled]="lastDisabled">Last</button>
+    </div>
+  </div>
+</div>

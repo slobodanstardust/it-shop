@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Product } from '../models/product';
 import { ProductsData } from '../models/products-data';
@@ -12,20 +12,16 @@ import { ProductsService } from '../services/products.service';
 })
 
 export class AdminProductsComponent implements OnInit {
+  productsData: ProductsData;
+
   products: Product[] = [];
-  pageCount: number;
-  count: number;
+
   parameters: any = {
     page: null,
     pageSize: null,
     name: '',
     price: ''
   }
-
-  nextDisabled: boolean;
-  lastDisabled: boolean;
-  previousDisabled: boolean;
-  firstDisabled: boolean;
 
   clickedProduct: Product;
   deletedProduct: Product;
@@ -37,67 +33,23 @@ export class AdminProductsComponent implements OnInit {
 
   ngOnInit (): void {
     this.parameters.page = 1;
-    this.parameters.pageSize = 5
+    this.parameters.pageSize = 5;
     this.loadProducts();
   }
 
   loadProducts (): void {
-    this.calculatePageCount();
+    console.log(this.parameters)
     this.productsService.getProducts(this.parameters).subscribe((data: ProductsData) => {
+      this.productsData = data;
       this.products = data.products;
-      this.pageCount = data.pageCount;
-      this.count = data.count;
-      this.setPagination();
+      console.log(data)
+      console.log(this.parameters)
     })
   }
 
-  // Need it to prevent empty page bug on page size change.
-  // I calculate it like this because I need new pageCount before I get it from the server.
-  calculatePageCount (): void {
-    if (this.parameters.page > this.count / this.parameters.pageSize) {
-      this.parameters.page = Math.ceil(this.count / this.parameters.pageSize);
-    }
-  }
-
-  setPagination (): void {
-    if (this.parameters.page == this.pageCount) {
-      this.nextDisabled = true;
-      this.lastDisabled = true;
-    } else {
-      this.nextDisabled = false;
-      this.lastDisabled = false;
-    }
-    if (this.parameters.page == 1) {
-      this.previousDisabled = true;
-      this.firstDisabled = true;
-    } else {
-      this.previousDisabled = false;
-      this.firstDisabled = false;
-    }
-  }
-
-  changePageSize (pageSize: number): void {
-    this.parameters.pageSize = pageSize;
-    this.loadProducts();
-  }
-
-  nextPage (): void {
-    this.parameters.page++;
-    this.loadProducts();
-  }
-
-  lastPage (): void {
-    this.parameters.page = this.pageCount;
-    this.loadProducts();
-  }
-
-  previousPage (): void {
-    this.parameters.page--;
-    this.loadProducts();
-  }
-
-  firstPage (): void {
-    this.parameters.page = 1;
+  onPageChange (paginationData: any): void { // This method is linked to my pagination component.
+    this.parameters.page = paginationData.page;
+    this.parameters.pageSize = paginationData.pageSize;
     this.loadProducts();
   }
 
