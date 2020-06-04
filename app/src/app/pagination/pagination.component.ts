@@ -28,7 +28,7 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.paginationData.page = 1;
-    this.paginationData.pageSize = 5;
+    this.paginationData.pageSize = 6;
   }
 
   ngOnChanges(): void { // I use on change because I need to do this operations every time productData changes.
@@ -86,3 +86,21 @@ export class PaginationComponent implements OnInit, OnChanges {
     this.pageChange.emit(this.paginationData);
   }
 }
+
+/*
+  parameters: any = {
+    page: null,
+    pageSize: null
+  }
+
+  ngOnInit (): void {
+    this.parameters.page = 1;
+    this.parameters.pageSize = 6;
+  }
+
+  onPageChange (paginationData: any): void {
+    this.parameters.page = paginationData.page;
+    this.parameters.pageSize = paginationData.pageSize;
+    this.loadProducts();
+  }
+*/

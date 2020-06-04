@@ -1,10 +1,10 @@
-<div class="row mt-2 mb-2">
+<div class="row mt-3 mb-3">
   <div class="col-4">
-    Table size:&nbsp;
+    Page size:&nbsp;
     <div class="btn-group btn-group-sm" role="group" aria-label="Pagination buttons">
-      <button type="button" class="btn btn-secondary" (click)="changePageSize(5)">5</button>
-      <button type="button" class="btn btn-secondary" (click)="changePageSize(10)">10</button>
-      <button type="button" class="btn btn-secondary" (click)="changePageSize(15)">15</button>
+      <button type="button" class="btn btn-secondary" (click)="changePageSize(6)">6</button>
+      <button type="button" class="btn btn-secondary" (click)="changePageSize(12)">12</button>
+      <button type="button" class="btn btn-secondary" (click)="changePageSize(24)">24</button>
     </div>
     &nbsp;Current size: {{ paginationData.pageSize }}
   </div>
@@ -19,3 +19,7 @@
     </div>
   </div>
 </div>
+
+<!-- 
+  <its-pagination [productsData]="productsData" (pageChange)="onPageChange($event)"></its-pagination>
+ -->

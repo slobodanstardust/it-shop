@@ -9,12 +9,14 @@
         <div class="card">
           <img src="http://localhost:3000/{{ item.imagePath }}" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <h5 class="card-title">{{ item.brand }} {{ item.name }}</h5>
+            <p class="card-text">{{ item.processor }}, {{ item.memory }}, {{ item.storage }}, {{ item.display }}</p>
+            <button class="btn btn-primary">Add to cart</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<its-pagination [productsData]="productsData" (pageChange)="onPageChange($event)"></its-pagination>

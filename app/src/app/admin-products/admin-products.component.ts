@@ -33,7 +33,7 @@ export class AdminProductsComponent implements OnInit {
 
   ngOnInit (): void {
     this.parameters.page = 1;
-    this.parameters.pageSize = 5;
+    this.parameters.pageSize = 6;
     this.loadProducts();
   }
 
