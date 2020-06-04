@@ -5,8 +5,7 @@ import { ProductsData } from '../models/products-data';
 
 @Component({
   selector: 'its-pagination',
-  templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.css']
+  templateUrl: './pagination.component.html'
 })
 
 export class PaginationComponent implements OnInit, OnChanges {
@@ -39,9 +38,7 @@ export class PaginationComponent implements OnInit, OnChanges {
     I need to know page count before I get it from the server.
     */
     if (this.productsData) {
-      this.pageCount = Math.ceil(this.productsData.count / this.productsData.pageSize);
-      // this.paginationData.page = this.productsData.page;
-      // this.paginationData.pageSize = this.productsData.pageSize;
+      this.pageCount = Math.ceil(this.productsData.count / this.paginationData.pageSize);
     }
     this.setPagination();
   }
@@ -65,6 +62,7 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   changePageSize (pageSize: number): void {
     this.paginationData.pageSize = pageSize;
+    this.paginationData.page = 1;
     this.pageChange.emit(this.paginationData);
   }
 

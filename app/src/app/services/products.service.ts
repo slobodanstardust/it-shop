@@ -27,7 +27,6 @@ export class ProductsService {
           .set('price', parameters.price || '')
       }
     }
-    console.log(queryParameters)
     return this.httpClient.get(PRODUCTS_URL, queryParameters).pipe(map((data: any) => new ProductsData(data)));
   }
 
