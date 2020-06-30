@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const multer = require('multer')
 const fs = require('fs')
 const productsData = require('../../products-db')
-const Product = require('../models/product')
+const Product = require('../models/product-model')
 
 mongoose.set('useFindAndModify', false); // Because findByIdAndUpdate is depreciated. This is the fix.
 

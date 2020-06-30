@@ -2,8 +2,9 @@ const express = require('express')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-const productsRoutes = require('./api/routs/produtcs')
-const ordersRoutes = require('./api/routs/orders')
+const productsRoutes = require('./api/routes/products-route')
+const ordersRoutes = require('./api/routes/orders-route')
+const usersRoutes = require('./api/routes/users-route')
 
 
 const app = express()
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
 
 app.use('/products', productsRoutes)
 app.use('/orders', ordersRoutes)
+app.use('/users', usersRoutes)
 
 app.use((req, res, next) => {
   const err = new Error('Error! Data not found.')

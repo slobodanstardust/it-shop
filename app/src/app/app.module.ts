@@ -15,6 +15,7 @@ import { AddEditProductComponent } from './add-edit-product/add-edit-product.com
 import { ViewModalComponent } from './view-modal/view-modal.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { LoginModalComponent } from './login/login-modal.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     AddEditProductComponent,
     ViewModalComponent,
     NavigationComponent,
-    PaginationComponent
+    PaginationComponent,
+    LoginModalComponent
   ],
   imports: [
     BrowserModule,

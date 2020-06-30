@@ -39,7 +39,7 @@ export class AddEditProductComponent implements OnInit {
     price: [null, [Validators.required, Validators.min(1)]],
     image: [''],
     imagePath: ['']
-  })
+  });
   
   constructor(
     private formBuilder: FormBuilder,

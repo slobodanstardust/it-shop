@@ -14,6 +14,7 @@
           Administrator
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" data-toggle="modal" data-target="#login" style="cursor: pointer;">Login</a>
           <a class="dropdown-item" routerLink="/administrator/products" routerLinkActive="active">Products</a>
           <a class="dropdown-item" routerLink="/administrator/orders" routerLinkActive="active">Orders</a>
         </div>
@@ -26,3 +27,8 @@
     </form>
   </div>
 </nav>
+
+<!-- Login modal -->
+<div class="modal fade" id="login" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <its-login-modal></its-login-modal>
+</div>

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const Order = require('../models/order')
-const Product = require('../models/product')
+const Order = require('../models/order-model')
+const Product = require('../models/product-model')
 
 
 // GET
