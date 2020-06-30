@@ -9,15 +9,19 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/home">Home</a>
       </li>
+
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Administrator
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" data-toggle="modal" data-target="#login" style="cursor: pointer;">Login</a>
           <a class="dropdown-item" routerLink="/administrator/products" routerLinkActive="active">Products</a>
           <a class="dropdown-item" routerLink="/administrator/orders" routerLinkActive="active">Orders</a>
         </div>
+      </li>
+
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
       </li>
     </ul>
     
@@ -27,8 +31,3 @@
     </form>
   </div>
 </nav>
-
-<!-- Login modal -->
-<div class="modal fade" id="login" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <its-login-modal></its-login-modal>
-</div>

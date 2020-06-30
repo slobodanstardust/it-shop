@@ -6,10 +6,12 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { AddEditProductComponent } from './add-edit-product/add-edit-product.component';
+import { LoginSignUpComponent } from './login-sign-up/login-sign-up.component';
 
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginSignUpComponent },
   // { path: 'products/:id', component: ProductsComponent },
   // { path: 'products', component: ProductsComponent },
   // { path: 'order', component: OrderComponent},

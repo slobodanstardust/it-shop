@@ -15,7 +15,7 @@ import { AddEditProductComponent } from './add-edit-product/add-edit-product.com
 import { ViewModalComponent } from './view-modal/view-modal.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { PaginationComponent } from './pagination/pagination.component';
-import { LoginModalComponent } from './login/login-modal.component';
+import { LoginSignUpComponent } from './login-sign-up/login-sign-up.component';
 
 
 @NgModule({
@@ -30,7 +30,7 @@ import { LoginModalComponent } from './login/login-modal.component';
     ViewModalComponent,
     NavigationComponent,
     PaginationComponent,
-    LoginModalComponent
+    LoginSignUpComponent
   ],
   imports: [
     BrowserModule,

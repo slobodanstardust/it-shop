@@ -3,7 +3,7 @@ const userController = require('../controllers/users-controller')
 
 const router = express.Router()
 
-router.route('/singup')
+router.route('/sign-up')
   .post(userController.createUser)
 
 router.route('/:id')
